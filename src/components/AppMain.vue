@@ -1,12 +1,14 @@
 <script>
 import MainSelect from "./MainSelect.vue";
+import CounterComponent from "./CounterComponent.vue"
 import CardsList from "./CardsList.vue";
 import { store } from "../store";
 export default {
   name: "AppMain",
   components: {
     MainSelect,
-    CardsList,
+    CounterComponent,
+    CardsList
   },
   data() {
     return {
@@ -15,12 +17,12 @@ export default {
   },
   methods: {
     performSelection() {
-      const url = store.ARCH_API + store.selectArch
+      const url = store.YUGI_API + `?archetype={{store.selectArch}}`
       store.fetchCard(url) 
     }
   },
   mounted() {
-    store.fetchCard(store.YUGI_API)
+    store.fetchCard(store.YUGI_API + store.maxCardDisplay)
   }
 };
 </script>
@@ -28,6 +30,7 @@ export default {
   <main>
     <div class="main_container">
       <MainSelect @makeSelection="performSelection(archetype)"/>
+      <CounterComponent :cards="store.cards" v-if="store.cards"/>
       <CardsList />
     </div>
   </main>
