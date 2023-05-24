@@ -13,6 +13,12 @@ export default {
       store
     }
   },
+  methods: {
+    performSelection() {
+      const url = store.ARCH_API + store.selectArch
+      store.fetchCard(url) 
+    }
+  },
   mounted() {
     store.fetchCard(store.YUGI_API)
   }
@@ -21,7 +27,7 @@ export default {
 <template>
   <main>
     <div class="main_container">
-      <MainSelect />
+      <MainSelect @makeSelection="performSelection(archetype)"/>
       <CardsList />
     </div>
   </main>
